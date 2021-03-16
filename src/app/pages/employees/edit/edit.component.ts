@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class EditComponent implements OnInit {
   value = null;
   employeeForm: FormGroup;
-  private isEmail = / /;
+  private isEmail = /\S+@\S+\.\S+/;
   constructor(private router: Router, private fb: FormBuilder) {
     //Initialize the router in the current component.
     //Set the 'navigation' const to receive the current navigation to this component.
@@ -24,7 +24,7 @@ export class EditComponent implements OnInit {
   }
 
   onSave(): void {
-    console.log('Save');
+    console.log('Save', this.employeeForm.value);
   }
 
   private initForm(): void {
