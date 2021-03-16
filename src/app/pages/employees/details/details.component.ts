@@ -7,18 +7,24 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
+  employee: any = null;
+
   navigationExtras: NavigationExtras = {
     state: {
       value: null,
     },
   };
-  employee: any = null;
+
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
-    this.employee = navigation?.extras?.state;
+    this.employee = navigation?.extras?.state?.value;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (typeof this.employee === 'undefined') {
+      this.router.navigate(['list']);
+    }
+  }
 
   onGoToEdit(): void {
     this.navigationExtras.state.value = this.employee; //sets the value of the navigationExtras interface to be the same value as the item.

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
-  value = null;
+  employee = null;
   employeeForm: FormGroup;
   private isEmail = /\S+@\S+\.\S+/;
   constructor(private router: Router, private fb: FormBuilder) {
@@ -16,15 +16,24 @@ export class EditComponent implements OnInit {
     //Set the 'navigation' const to receive the current navigation to this component.
     //Set the value of the current navigation to a variable that. called 'value'.
     const navigation = this.router.getCurrentNavigation(); //I think it gets the properties of the things navigating to it.
-    this.value = navigation?.extras?.state; //the "?"s after some words represents that the propriety is optional.
+    this.employee = navigation?.extras?.state?.value; //the "?"s after some words represents that the propriety is optional.
+    this.initForm();
   }
 
   ngOnInit(): void {
-    this.initForm();
+    if (typeof this.employee === 'undefined') {
+      this.router.navigate(['new']);
+    } else {
+      this.employeeForm.patchValue(this.employee);
+    }
   }
 
   onSave(): void {
     console.log('Save', this.employeeForm.value);
+  }
+
+  onGoBackToList(): void {
+    this.router.navigate(['list']);
   }
 
   private initForm(): void {
