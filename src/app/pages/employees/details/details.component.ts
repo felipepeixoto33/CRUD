@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { Employee } from 'src/app/shared/models/employee.interface';
 
 @Component({
   selector: 'app-details',
@@ -7,7 +8,7 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
-  employee: any = null;
+  employee: Employee = null;
 
   navigationExtras: NavigationExtras = {
     state: {
