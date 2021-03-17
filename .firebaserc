@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "crud-angular-employee": {
+      "hosting": {
+        "crud": [
+          "crud-angular-employee"
+        ]
+      }
+    }
+  }
+}
