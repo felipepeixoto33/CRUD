@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { EmployeesService } from '../employees.service';
 //NavExtras to pass data through the angular router.
 
 @Component({
@@ -8,46 +9,14 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
+  employee$ = this.employeesSvc.employees;
   navigationExtras: NavigationExtras = {
     state: {
       value: null,
     },
   };
 
-  fakeData = [
-    {
-      name: 'Felipe',
-      lastName: 'Peixoto',
-      email: 'me@gmail.com',
-      startDate: '01/02/2021',
-    },
-    {
-      name: 'Felipe',
-      lastName: 'Guilherme',
-      email: 'me@gmail.com',
-      startDate: '01/02/2021',
-    },
-    {
-      name: 'Humberto',
-      lastName: 'Peixoto',
-      email: 'me@gmail.com',
-      startDate: '01/02/2021',
-    },
-    {
-      name: 'Lucas',
-      lastName: 'Peixoto',
-      email: 'me@gmail.com',
-      startDate: '01/02/2021',
-    },
-    {
-      name: 'Edna',
-      lastName: 'Maria',
-      email: 'me@gmail.com',
-      startDate: '01/02/2021',
-    },
-  ];
-
-  constructor(private router: Router) {}
+  constructor(private router: Router, private employeesSvc: EmployeesService) {}
 
   ngOnInit(): void {}
 
@@ -59,7 +28,12 @@ export class ListComponent implements OnInit {
     this.navigationExtras.state.value = item;
     this.router.navigate(['details'], this.navigationExtras);
   }
-  onGoToDelete(item: any): void {
+  async onGoToDelete(empId: string): Promise<void> {
+    try {
+      await this.employeesSvc.onDeleteEmployee(empId);
+    } catch (err) {
+      console.log(err);
+    }
     alert('Deleted');
   }
 }

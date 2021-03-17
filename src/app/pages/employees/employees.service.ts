@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Employee } from 'src/app/shared/models/employee.interface';
-import { AngularFirestoreCollection } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -41,7 +44,7 @@ export class EmployeesService {
     });
   }
 
-  private getEmployees(empId: string): void {
+  private getEmployees(): void {
     this.employees = this.employeesCollection
       .snapshotChanges()
       .pipe(

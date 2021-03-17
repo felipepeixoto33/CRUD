@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Employee } from 'src/app/shared/models/employee.interface';
+import { EmployeesService } from '../employees.service';
 
 @Component({
   selector: 'app-details',
@@ -16,7 +17,7 @@ export class DetailsComponent implements OnInit {
     },
   };
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private employeesSvc: EmployeesService) {
     const navigation = this.router.getCurrentNavigation();
     this.employee = navigation?.extras?.state?.value;
   }
@@ -32,7 +33,13 @@ export class DetailsComponent implements OnInit {
     this.router.navigate(['edit'], this.navigationExtras); //navigate to the certain item (by the second parameter) in the edit router (first parameter).
   }
 
-  onDelete(): void {
+  async onGoToDelete(): Promise<void> {
+    try {
+      await this.employeesSvc.onDeleteEmployee(this.employee?.id);
+      this.router.navigate(['list']);
+    } catch (err) {
+      console.log(err);
+    }
     alert('Deleted');
   }
 

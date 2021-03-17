@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="table-info" *ngFor="let item of fakeData">
+      <tr class="table-info" *ngFor="let item of employee$ | async">
         <th scope="row">{{ item.name }} {{ item.lastName }}</th>
         <td>{{ item.email }}</td>
         <td>{{ item.startDate }}</td>
@@ -32,7 +32,7 @@
           <button
             type="button"
             class="btn btn-danger m-1"
-            (click)="onGoToDelete(item)"
+            (click)="onGoToDelete(item.id)"
           >
             Delete
           </button>
