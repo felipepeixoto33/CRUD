@@ -10,7 +10,13 @@
         class="form-control"
         placeholder="Name"
         formControlName="name"
+        [class]="isValidField('name')"
       />
+      <div class="invalid-feedback">
+        <span *ngIf="employeeForm.get('name').errors?.required">
+          This field is required.
+        </span>
+      </div>
     </div>
     <div class="form-group col-md-6">
       <input
@@ -18,7 +24,13 @@
         class="form-control"
         placeholder="Last Name"
         formControlName="lastName"
+        [class]="isValidField('lastName')"
       />
+      <div class="invalid-feedback">
+        <span *ngIf="employeeForm.get('lastName').errors?.required">
+          This field is required.
+        </span>
+      </div>
     </div>
   </div>
 
@@ -29,7 +41,16 @@
         class="form-control"
         placeholder="Email"
         formControlName="email"
+        [class]="isValidField('email')"
       />
+      <div class="invalid-feedback">
+        <span *ngIf="employeeForm.get('email').errors?.required">
+          This field is required.
+        </span>
+        <span *ngIf="employeeForm.get('email').errors?.pattern">
+          Enter a valid email.
+        </span>
+      </div>
     </div>
     <div class="form-group col-md-6">
       <input
@@ -37,7 +58,13 @@
         class="form-control"
         placeholder="Start Date"
         formControlName="startDate"
+        [class]="isValidField('startDate')"
       />
+      <div class="invalid-feedback">
+        <span *ngIf="employeeForm.get('startDate').errors?.required">
+          This field is required.
+        </span>
+      </div>
     </div>
   </div>
   <button type="submit" class="btn bg-dark btn-block text-light">Save</button>
